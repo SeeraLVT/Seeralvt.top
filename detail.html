@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.5;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        header {
+            border-bottom: 1px solid #2a2a2a;
+            padding: 32px 0;
+            margin-bottom: 48px;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: -0.3px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .back-link {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #a0a0a0;
+            text-decoration: none;
+            border: 1px solid #2a2a2a;
+            padding: 8px 16px;
+            border-radius: 30px;
+        }
+
+        .back-link:hover {
+            border-color: #5a5a5a;
+            color: #fff;
+        }
+
+        
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 64px;
+            margin: 40px 0 80px;
+        }
+
+        .detail-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            background-color: #1a1a1a;
+        }
+
+        .detail-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 24px;
+        }
+
+        .badge {
+            font-size: 0.7rem;
+            color: #d97706;
+            border: 1px solid #2a2a2a;
+            padding: 4px 12px;
+            border-radius: 30px;
+            letter-spacing: 0.5px;
+        }
+
+        .year-location {
+            font-size: 0.7rem;
+            color: #6b6b6b;
+            padding: 4px 0;
+        }
+
+        .detail-title {
+            font-size: 2.5rem;
+            font-weight: 400;
+            font-style: italic;
+            color: #fff;
+            margin-bottom: 24px;
+        }
+
+        .detail-description {
+            font-size: 1rem;
+            color: #bcbcbc;
+            margin-bottom: 24px;
+            border-left: 2px solid #d97706;
+            padding-left: 20px;
+        }
+
+        .detail-full {
+            font-size: 0.9rem;
+            color: #8a8a8a;
+            line-height: 1.6;
+        }
+
+        footer {
+            border-top: 1px solid #2a2a2a;
+            padding: 32px 0;
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #4a4a4a;
+        }
+
+        @media (max-width: 768px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+            .detail-title {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="header-inner">
+            <a href="index.html" class="logo">SeeraLVT_Artworks</a>
+            <a href="index.html" class="back-link">← All Artworks</a>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container" id="detail-content">
+        <!-- 动态填充 -->
+        <div style="text-align: center; padding: 60px 0;">加载中...</div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div>©2026 SeeraLVT_Artworks</div>
+    </div>
+</footer>
+
+<script>
+    // 作品数据库（与首页完全一致）
+    const WORKS_DB = [
+          {
+            id: "ReAlt-Oblog",
+            title: "ReAlt-观测记录",
+            year: "2026",
+            location: "动态壁纸",
+            description: "在观测角度对「循环」、「共鸣」与「回溯」的理解。",
+            fullDescription: "在尽可能还原专辑流线型观感的同时加入了更多破碎、尖锐的元素。",
+            image: "img/测试2.png",
+            largeImage: "img/测试2.png"
+        },
+        {
+            id: "Sennoza",
+            title: "Sennoza-印象绘",
+            year: "2023",
+            location: "插画",
+            description: "为还原初见时的惊艳感而作",
+            fullDescription: "利用社交软件透明背景的显示机制，希望给人传递‘点开后别有洞天’的观感。",
+            image: "img/Sennoza-black.png",
+            largeImage: "img/Sennoza-black.png"
+        },
+        {
+            id: "Fervidex",
+            title: "Fervidex-印象绘",
+            year: "2022",
+            location: "插画",
+            description: "对听感可视化的新探索",
+            fullDescription: "看似单色实则色彩纷呈，想要传递这样的感受。",
+            image: "img/Fervidex1.jpg",
+            largeImage: "img/Fervidex1.jpg"
+        },
+        {
+            id: "ran",
+            title: "蘭-印象绘",
+            year: "2022",
+            location: "插画", 
+            description: "一时兴起而作。",
+            fullDescription: "第一幅为了还原歌曲氛围和情感创作的作品。",
+            image: "img/蘭.jpg",
+            largeImage: "img/蘭.jpg"
+        },
+    ];
+
+    function getWorkFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+        if (!id) return null;
+        return WORKS_DB.find(work => work.id === id);
+    }
+
+    function renderDetail() {
+        const work = getWorkFromURL();
+        const container = document.getElementById('detail-content');
+        
+        if (!work) {
+            container.innerHTML = `
+                <div style="text-align: center; padding: 80px 0;">
+                    <h2 style="font-size: 1.5rem; font-weight: 400;">作品未找到</h2>
+                    <a href="index.html" style="color: #d97706; margin-top: 20px; display: inline-block;">返回首页</a>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = `
+            <div class="detail-grid">
+                <div class="detail-image">
+                    <img src="${work.largeImage}" alt="${work.title}">
+                </div>
+                <div class="detail-info">
+                    <div class="detail-meta">
+                        <span class="badge">Original</span>
+                        <span class="year-location">${work.year} · ${work.location}</span>
+                    </div>
+                    <h1 class="detail-title">${work.title}</h1>
+                    <p class="detail-description">${work.description}</p>
+                    <div class="detail-full">${work.fullDescription}</div>
+                </div>
+            </div>
+        `;
+    }
+
+    renderDetail();
+</script>
+</body>
+</html>

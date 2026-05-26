@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Derivate works by SeeraLVT</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0; 
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #0a0a0a;
+            color: #e5e5e5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+            line-height: 1.4;
+        }
+
+        
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        
+        header {
+            border-bottom: 1px solid #2a2a2a;
+            padding: 32px 0;
+            margin-bottom: 48px;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 500;
+            letter-spacing: -0.3px;
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .nav {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav a {
+            color: #a0a0a0;
+            text-decoration: none;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.2s;
+        }
+
+        .nav a:hover {
+            color: #fff;
+        }
+
+        
+        .section-title {
+            margin-bottom: 32px;
+        }
+
+        .section-title .label {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #d97706;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .section-title h1 {
+            font-size: 3rem;
+            font-weight: 400;
+            font-style: italic;
+            color: #fff;
+        }
+
+        .section-description {
+            max-width: 480px;
+            font-size: 0.875rem;
+            color: #6b6b6b;
+            text-align: right;
+            margin-top: 8px;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 32px;
+            margin: 48px 0 80px;
+        }
+
+        
+        .card {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+        }
+
+        .card-image {
+            aspect-ratio: 4 / 5;
+            background-color: #1a1a1a;
+            overflow: hidden;
+            margin-bottom: 12px;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .card-year {
+            font-size: 0.7rem;
+            color: #d97706;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .card-location {
+            font-size: 0.7rem;
+            color: #6b6b6b;
+        }
+
+        
+        footer {
+            border-top: 1px solid #2a2a2a;
+            padding: 40px 0;
+            margin-top: 40px;
+            text-align: center;
+            font-size: 0.7rem;
+            color: #4a4a4a;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 32px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: #6b6b6b;
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.65rem;
+        }
+
+        .footer-links a:hover {
+            color: #e5e5e5;
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 16px;
+            }
+            .header-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .section-title h1 {
+                font-size: 2rem;
+            }
+            .grid {
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="container">
+        <div class="header-inner">
+            <a href="/index.html" class="logo">SeeraLVT_Artworks&nbsp;&nbsp;</a>
+            <div class="nav">
+                <a href="/index.html"></a>
+                <a href="mailto:seeralvt@gmail.com">seeralvt@gmail.com</a>
+                <a href="#"></a>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <div class="container">
+        <div class="section-title">
+            <span class="label">Personal Laboratory</span>
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;">
+                <h1>Fan Illustrations.</h1>
+                <p class="section-description">Experimental works, sketches, and subconscious explorations.</p>
+            </div>
+        </div>
+
+        <div class="grid" id="originals-grid">
+        </div>
+    </div>
+</main>
+
+<footer>
+    <div class="container">
+        <div class="footer-links">
+            <a href="https://x.com/Bilitea1/media">X</a>
+            
+            <a href="mailto:seeralvt@gmail.com">Email</a>
+        </div>
+        <div>©2026 SeeraLVT</div>
+    </div>
+</footer>
+
+<script>
+    
+    const ORIGINAL_WORKS = [
+        {
+            id: "ReAlt-Oblog",
+            title: "ReAlt-观测记录",
+            year: "2026",
+            location: "动态壁纸",
+            description: "在观测角度对「循环」、「共鸣」与「回溯」的理解。",
+            fullDescription: "在尽可能还原专辑流线型观感的同时加入了更多破碎、尖锐的元素。",
+            image: "img/测试2.png",
+            largeImage: "img/测试2.png"
+        },
+        {
+            id: "Sennoza",
+            title: "Sennoza-印象绘",
+            year: "2023",
+            location: "插画",
+            description: "为还原初见时的惊艳感而作",
+            fullDescription: "利用社交软件透明背景的显示机制，希望给人传递‘点开后别有洞天’的观感。",
+            image: "img/Sennoza-black.png",
+            largeImage: "img/Sennoza-black.png"
+        },
+        {
+            id: "Fervidex",
+            title: "Fervidex-印象绘",
+            year: "2022",
+            location: "插画",
+            description: "对听感可视化的新探索",
+            fullDescription: "看似单色实则色彩纷呈，想要传递这样的感受。",
+            image: "img/Fervidex1.jpg",
+            largeImage: "img/Fervidex1.jpg"
+        },
+        {
+            id: "ran",
+            title: "蘭-印象绘",
+            year: "2022",
+            location: "插画", 
+            description: "一时兴起而作。",
+            fullDescription: "第一幅为了还原歌曲氛围和情感创作的作品。",
+            image: "img/蘭.jpg",
+            largeImage: "img/蘭.jpg"
+        },
+        
+    ];
+
+    function renderGrid() {
+        const container = document.getElementById('originals-grid');
+        if (!container) return;
+        container.innerHTML = ORIGINAL_WORKS.map(work => `
+            <a href="detail.html?id=${work.id}" class="card">
+                <div class="card-image">
+                    <img src="${work.image}" alt="${work.title}" loading="lazy">
+                </div>
+                <div class="card-year">${work.year}</div>
+                <div class="card-title">${work.title}</div>
+                <div class="card-location">${work.location}</div>
+            </a>
+        `).join('');
+    }
+
+    renderGrid();
+</script>
+</body>
+</html>
