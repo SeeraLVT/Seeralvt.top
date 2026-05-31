@@ -51,6 +51,7 @@
         .nav {
             display: flex;
             gap: 32px;
+            align-items: center;
         }
 
         .nav a {
@@ -63,6 +64,36 @@
         }
 
         .nav a:hover {
+            color: #fff;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 8px;
+            margin-left: 8px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 1px solid #3a3a3a;
+            color: #a0a0a0;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .lang-btn.active {
+            background-color: #d97706;
+            border-color: #d97706;
+            color: #fff;
+        }
+
+        .lang-btn:hover:not(.active) {
+            border-color: #6b6b6b;
             color: #fff;
         }
 
@@ -185,6 +216,9 @@
             .grid {
                 gap: 20px;
             }
+            .nav {
+                flex-wrap: wrap;
+            }
         }
     </style>
 </head>
@@ -193,11 +227,13 @@
 <header>
     <div class="container">
         <div class="header-inner">
-            <a href="/index.html" class="logo">SeeraLVT_Artworks&nbsp;&nbsp;</a>
+            <a href="index.html" class="logo">SeeraLVT_Artworks&nbsp;&nbsp;</a>
             <div class="nav">
-                <a href="/index.html"></a>
                 <a href="mailto:seeralvt@gmail.com">seeralvt@gmail.com</a>
-                <a href="#"></a>
+                <div class="lang-switch">
+                    <button class="lang-btn" data-lang="zh">中</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
             </div>
         </div>
     </div>
@@ -205,11 +241,11 @@
 
 <main>
     <div class="container">
-        <div class="section-title">
-            <span class="label">Personal Laboratory</span>
+        <div class="section-title" id="section-title">
+            <span class="label" id="section-label">Personal Laboratory</span>
             <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 16px;">
-                <h1>Fan Illustrations.</h1>
-                <p class="section-description">Experimental works, sketches, and subconscious explorations.</p>
+                <h1 id="section-heading">Fan Illustrations.</h1>
+                <p class="section-description" id="section-desc">Experimental works, sketches, and subconscious explorations.</p>
             </div>
         </div>
 
@@ -222,7 +258,6 @@
     <div class="container">
         <div class="footer-links">
             <a href="https://x.com/Bilitea1/media">X</a>
-            
             <a href="mailto:seeralvt@gmail.com">Email</a>
         </div>
         <div>©2026 SeeraLVT</div>
@@ -230,55 +265,115 @@
 </footer>
 
 <script>
-    
-    const ORIGINAL_WORKS = [
+   
+    const WORKS_MULTILINGUAL = [
         {
             id: "ReAlt-Oblog",
-            title: "ReAlt-观测记录",
             year: "2026",
-            location: "动态壁纸",
-            description: "在观测角度对「循环」、「共鸣」与「回溯」的理解。",
-            fullDescription: "在尽可能还原专辑流线型观感的同时加入了更多破碎、尖锐的元素。",
-            image: "img/测试2.png",
-            largeImage: "img/测试2.png"
+            image: "img/ReAlt_Star Trail.jpg",
+            largeImage: "img/ReAlt_Star Trail.jpg",
+            title_zh: "ReAlt-观测记录",
+            title_en: "ReAlt - Observation Record",
+            location_zh: "动态壁纸",
+            location_en: "Dynamic Wallpaper",
+            description_zh: "在观测角度对「循环」、「共鸣」与「回溯」的理解。",
+            description_en: "Understanding of 'Cycle', 'Resonance' and 'Retrospection' from an observational perspective.",
+            fullDescription_zh: "在尽可能还原专辑流线型观感的同时加入了更多破碎、尖锐的元素。<br>创作这张插画时，我认为曲子给我的印象更加偏向硬而光滑，于是主动‘关上了灯’，尽全力把脑海内水晶一般的质感绘制了下来。<br>除此之外，我在创作时结合了‘水波’与‘声波’，以及视角转换等概念。我们站在地球表面，就算理解恒星是什么，但仅凭肉眼观察天空只能看到若隐若现的星点。虽然无法到达，无法看清全貌，但我想，我们可以用自己的方式，将星点连接成线。<br><br>壁纸链接：https://steamcommunity.com/sharedfiles/filedetails/?id=3632506750<br>个人主页：https://x.com/Bilitea1",
+            fullDescription_en: "While preserving the streamlined feel of the album as much as possible, more fragmented and sharp elements were added.<br>When creating this illustration, the piece felt hard and smooth to me, so I actively 'turned off the lights' and did my best to capture the crystal-like texture in my mind.<br>In addition, I incorporated concepts like 'water waves', 'sound waves', and perspective shifts. Standing on Earth's surface, even if we understand what stars are, we can only see faint twinkling points with the naked eye. Although we cannot reach them or see the full picture, I believe we can connect those dots in our own way.<br><br>Wallpaper Link: https://steamcommunity.com/sharedfiles/filedetails/?id=3632506750<br>Homepage: https://x.com/Bilitea1"
         },
         {
             id: "Sennoza",
-            title: "Sennoza-印象绘",
             year: "2023",
-            location: "插画",
-            description: "为还原初见时的惊艳感而作",
-            fullDescription: "利用社交软件透明背景的显示机制，希望给人传递‘点开后别有洞天’的观感。",
             image: "img/Sennoza-black.png",
-            largeImage: "img/Sennoza-black.png"
+            largeImage: "img/Sennoza-black.png",
+            title_zh: "Sennoza-印象绘",
+            title_en: "Sennoza - Impression Drawing",
+            location_zh: "插画",
+            location_en: "Illustration",
+            description_zh: "为还原初见时的惊艳感而作",
+            description_en: "Created to recreate the awe of the first encounter.",
+            fullDescription_zh: "利用社交软件透明背景的显示机制，希望给人传递‘点开后别有洞天’的观感。",
+            fullDescription_en: "Using the transparent background display mechanism of social media, aiming to convey a 'hidden world after clicking' feeling."
         },
         {
             id: "Fervidex",
-            title: "Fervidex-印象绘",
             year: "2022",
-            location: "插画",
-            description: "对听感可视化的新探索",
-            fullDescription: "看似单色实则色彩纷呈，想要传递这样的感受。",
             image: "img/Fervidex1.jpg",
-            largeImage: "img/Fervidex1.jpg"
+            largeImage: "img/Fervidex1.jpg",
+            title_zh: "Fervidex-印象绘",
+            title_en: "Fervidex - Impression Drawing",
+            location_zh: "插画",
+            location_en: "Illustration",
+            description_zh: "对听感可视化的新探索",
+            description_en: "A new exploration of visualizing listening experience.",
+            fullDescription_zh: "看似单色实则色彩纷呈，想要传递这样的感受。",
+            fullDescription_en: "Monochrome in appearance but vibrant in essence — wanting to convey that feeling."
         },
         {
             id: "ran",
-            title: "蘭-印象绘",
             year: "2022",
-            location: "插画", 
-            description: "一时兴起而作。",
-            fullDescription: "第一幅为了还原歌曲氛围和情感创作的作品。",
             image: "img/蘭.jpg",
-            largeImage: "img/蘭.jpg"
+            largeImage: "img/蘭.jpg",
+            title_zh: "蘭-印象绘",
+            title_en: "Orchid - Impression Drawing",
+            location_zh: "插画",
+            location_en: "Illustration",
+            description_zh: "一时兴起而作。",
+            description_en: "Created on a whim.",
+            fullDescription_zh: "第一幅为了还原歌曲氛围和情感创作的作品。",
+            fullDescription_en: "The first piece created to capture the atmosphere and emotion of a song."
         },
-        
     ];
 
+   
+    const STATIC_TRANSLATIONS = {
+        zh: {
+            sectionLabel: "Personal Laboratory",
+            sectionHeading: "二创插画",
+            sectionDesc: "实验性作品、草图与潜意识探索。",
+        },
+        en: {
+            sectionLabel: "Personal Laboratory",
+            sectionHeading: "Fan Illustrations.",
+            sectionDesc: "Experimental works, sketches, and subconscious explorations.",
+        }
+    };
+
+    let currentLang = localStorage.getItem('seeralvt_lang') || 'zh'; // 默认中文
+
+    // 获取作品当前语言下的显示对象
+    function getLocalizedWork(work) {
+        const lang = currentLang;
+        return {
+            id: work.id,
+            year: work.year,
+            image: work.image,
+            largeImage: work.largeImage,
+            title: lang === 'zh' ? work.title_zh : work.title_en,
+            location: lang === 'zh' ? work.location_zh : work.location_en,
+            description: lang === 'zh' ? work.description_zh : work.description_en,
+            fullDescription: lang === 'zh' ? work.fullDescription_zh : work.fullDescription_en,
+        };
+    }
+
+    // 获取所有本地化作品列表
+    function getAllLocalizedWorks() {
+        return WORKS_MULTILINGUAL.map(work => getLocalizedWork(work));
+    }
+
+    // 根据id获取本地化作品
+    function getLocalizedWorkById(id) {
+        const work = WORKS_MULTILINGUAL.find(w => w.id === id);
+        if (!work) return null;
+        return getLocalizedWork(work);
+    }
+
+    // 渲染首页网格
     function renderGrid() {
         const container = document.getElementById('originals-grid');
         if (!container) return;
-        container.innerHTML = ORIGINAL_WORKS.map(work => `
+        const works = getAllLocalizedWorks();
+        container.innerHTML = works.map(work => `
             <a href="detail.html?id=${work.id}" class="card">
                 <div class="card-image">
                     <img src="${work.image}" alt="${work.title}" loading="lazy">
@@ -290,7 +385,61 @@
         `).join('');
     }
 
-    renderGrid();
+    // 更新静态文本（首页特有）
+    function updateStaticTexts() {
+        const t = STATIC_TRANSLATIONS[currentLang];
+        if (t) {
+            const labelEl = document.getElementById('section-label');
+            const headingEl = document.getElementById('section-heading');
+            const descEl = document.getElementById('section-desc');
+            if (labelEl) labelEl.innerText = t.sectionLabel;
+            if (headingEl) headingEl.innerText = t.sectionHeading;
+            if (descEl) descEl.innerText = t.sectionDesc;
+        }
+        // 更新语言按钮激活状态
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            const langVal = btn.getAttribute('data-lang');
+            if (langVal === currentLang) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    // 切换语言主逻辑
+    function setLanguage(lang) {
+        if (lang === currentLang) return;
+        currentLang = lang;
+        localStorage.setItem('seeralvt_lang', lang);
+        // 重新渲染动态内容
+        renderGrid();
+        // 更新静态文本
+        updateStaticTexts();
+    }
+
+    // 绑定语言切换按钮事件
+    function bindLangSwitcher() {
+        const btns = document.querySelectorAll('.lang-btn');
+        btns.forEach(btn => {
+            btn.removeEventListener('click', langHandler);
+            btn.addEventListener('click', langHandler);
+        });
+    }
+
+    function langHandler(e) {
+        const lang = e.currentTarget.getAttribute('data-lang');
+        if (lang) setLanguage(lang);
+    }
+
+    // 初始化页面
+    function initIndex() {
+        updateStaticTexts();
+        renderGrid();
+        bindLangSwitcher();
+    }
+
+    initIndex();
 </script>
 </body>
 </html>

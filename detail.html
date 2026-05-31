@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detail</title>
+    <title>Detail - SeeraLVT Artworks</title>
     <style>
         * {
             margin: 0;
@@ -46,6 +46,13 @@
             text-decoration: none;
         }
 
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
         .back-link {
             font-size: 0.75rem;
             text-transform: uppercase;
@@ -55,6 +62,7 @@
             border: 1px solid #2a2a2a;
             padding: 8px 16px;
             border-radius: 30px;
+            transition: all 0.2s;
         }
 
         .back-link:hover {
@@ -62,7 +70,35 @@
             color: #fff;
         }
 
-        
+        .lang-switch {
+            display: flex;
+            gap: 8px;
+        }
+
+        .lang-btn {
+            background: none;
+            border: 1px solid #3a3a3a;
+            color: #a0a0a0;
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .lang-btn.active {
+            background-color: #d97706;
+            border-color: #d97706;
+            color: #fff;
+        }
+
+        .lang-btn:hover:not(.active) {
+            border-color: #6b6b6b;
+            color: #fff;
+        }
+
         .detail-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -121,6 +157,31 @@
             line-height: 1.6;
         }
 
+        .error-container {
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .error-container h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            margin-bottom: 20px;
+        }
+
+        .error-container a {
+            color: #d97706;
+            display: inline-block;
+            text-decoration: none;
+            border: 1px solid #2a2a2a;
+            padding: 8px 20px;
+            border-radius: 30px;
+            transition: all 0.2s;
+        }
+
+        .error-container a:hover {
+            border-color: #d97706;
+        }
+
         footer {
             border-top: 1px solid #2a2a2a;
             padding: 32px 0;
@@ -130,13 +191,30 @@
             color: #4a4a4a;
         }
 
-        @media (max-width: 768px) {
+        @media (max-width: 1388px) {
             .detail-grid {
                 grid-template-columns: 1fr;
                 gap: 32px;
             }
             .detail-title {
                 font-size: 1.8rem;
+            }
+            .header-right {
+                gap: 12px;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .container {
+                padding: 0 16px;
+            }
+            .header-inner {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .header-right {
+                width: 100%;
+                justify-content: space-between;
             }
         }
     </style>
@@ -147,15 +225,21 @@
     <div class="container">
         <div class="header-inner">
             <a href="index.html" class="logo">SeeraLVT_Artworks</a>
-            <a href="index.html" class="back-link">← All Artworks</a>
+            <div class="header-right">
+                <a href="index.html" class="back-link" id="back-link">← All Artworks</a>
+                <div class="lang-switch" id="lang-switch">
+                    <button class="lang-btn" data-lang="zh">中</button>
+                    <button class="lang-btn" data-lang="en">EN</button>
+                </div>
+            </div>
         </div>
     </div>
 </header>
 
 <main>
     <div class="container" id="detail-content">
-        <!-- 动态填充 -->
-        <div style="text-align: center; padding: 60px 0;">加载中...</div>
+        <!-- 动态填充详情 -->
+        <div style="text-align: center; padding: 60px 0;" id="loading-placeholder">加载中...</div>
     </div>
 </main>
 
@@ -166,71 +250,155 @@
 </footer>
 
 <script>
-    // 作品数据库（与首页完全一致）
-    const WORKS_DB = [
-          {
+    // ======================= 多语言作品数据库 (与首页完全一致) =======================
+    const WORKS_MULTILINGUAL = [
+        {
             id: "ReAlt-Oblog",
-            title: "ReAlt-观测记录",
             year: "2026",
-            location: "动态壁纸",
-            description: "在观测角度对「循环」、「共鸣」与「回溯」的理解。",
-            fullDescription: "在尽可能还原专辑流线型观感的同时加入了更多破碎、尖锐的元素。",
-            image: "img/测试2.png",
-            largeImage: "img/测试2.png"
+            image: "img/ReAlt_Star Trail.jpg",
+            largeImage: "img/ReAlt_Star Trail.jpg",
+            title_zh: "ReAlt-观测记录",
+            title_en: "ReAlt - Observation Record",
+            location_zh: "动态壁纸",
+            location_en: "Dynamic Wallpaper",
+            description_zh: "在观测角度对「循环」、「共鸣」与「回溯」的理解。",
+            description_en: "Understanding of 'Cycle', 'Resonance' and 'Retrospection' from an observational perspective.",
+            fullDescription_zh: "在尽可能还原专辑流线型观感的同时加入了更多破碎、尖锐的元素。<br>创作这张插画时，我认为曲子给我的印象更加偏向硬而光滑，于是主动‘关上了灯’，尽全力把脑海内水晶一般的质感绘制了下来。<br>除此之外，我在创作时结合了‘水波’与‘声波’，以及视角转换等概念。我们站在地球表面，就算理解恒星是什么，但仅凭肉眼观察天空只能看到若隐若现的星点。虽然无法到达，无法看清全貌，但我想，我们可以用自己的方式，将星点连接成线。<br><br>壁纸链接：https://steamcommunity.com/sharedfiles/filedetails/?id=3632506750<br>个人主页：https://x.com/Bilitea1",
+            fullDescription_en: "While preserving the streamlined feel of the album as much as possible, more fragmented and sharp elements were added.<br>When creating this illustration, the piece felt hard and smooth to me, so I actively 'turned off the lights' and did my best to capture the crystal-like texture in my mind.<br>In addition, I incorporated concepts like 'water waves', 'sound waves', and perspective shifts. Standing on Earth's surface, even if we understand what stars are, we can only see faint twinkling points with the naked eye. Although we cannot reach them or see the full picture, I believe we can connect those dots in our own way.<br><br>Wallpaper Link: https://steamcommunity.com/sharedfiles/filedetails/?id=3632506750<br>Homepage: https://x.com/Bilitea1"
         },
         {
             id: "Sennoza",
-            title: "Sennoza-印象绘",
             year: "2023",
-            location: "插画",
-            description: "为还原初见时的惊艳感而作",
-            fullDescription: "利用社交软件透明背景的显示机制，希望给人传递‘点开后别有洞天’的观感。",
             image: "img/Sennoza-black.png",
-            largeImage: "img/Sennoza-black.png"
+            largeImage: "img/Sennoza-black.png",
+            title_zh: "Sennoza-印象绘",
+            title_en: "Sennoza - Impression Drawing",
+            location_zh: "插画",
+            location_en: "Illustration",
+            description_zh: "为还原初见时的惊艳感而作",
+            description_en: "Created to recreate the awe of the first encounter.",
+            fullDescription_zh: "利用社交软件透明背景的显示机制，希望给人传递‘点开后别有洞天’的观感。",
+            fullDescription_en: "Using the transparent background display mechanism of social media, aiming to convey a 'hidden world after clicking' feeling."
         },
         {
             id: "Fervidex",
-            title: "Fervidex-印象绘",
             year: "2022",
-            location: "插画",
-            description: "对听感可视化的新探索",
-            fullDescription: "看似单色实则色彩纷呈，想要传递这样的感受。",
             image: "img/Fervidex1.jpg",
-            largeImage: "img/Fervidex1.jpg"
+            largeImage: "img/Fervidex1.jpg",
+            title_zh: "Fervidex-印象绘",
+            title_en: "Fervidex - Impression Drawing",
+            location_zh: "插画",
+            location_en: "Illustration",
+            description_zh: "对听感可视化的新探索",
+            description_en: "A new exploration of visualizing listening experience.",
+            fullDescription_zh: "看似单色实则色彩纷呈，想要传递这样的感受。",
+            fullDescription_en: "Monochrome in appearance but vibrant in essence — wanting to convey that feeling."
         },
         {
             id: "ran",
-            title: "蘭-印象绘",
             year: "2022",
-            location: "插画", 
-            description: "一时兴起而作。",
-            fullDescription: "第一幅为了还原歌曲氛围和情感创作的作品。",
             image: "img/蘭.jpg",
-            largeImage: "img/蘭.jpg"
-        },
+            largeImage: "img/蘭.jpg",
+            title_zh: "蘭-印象绘",
+            title_en: "Orchid - Impression Drawing",
+            location_zh: "插画",
+            location_en: "Illustration",
+            description_zh: "一时兴起而作。",
+            description_en: "Created on a whim.",
+            fullDescription_zh: "第一幅为了还原歌曲氛围和情感创作的作品。",
+            fullDescription_en: "The first piece created to capture the atmosphere and emotion of a song."
+        }
     ];
 
-    function getWorkFromURL() {
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get('id');
-        if (!id) return null;
-        return WORKS_DB.find(work => work.id === id);
+    // 静态界面文本翻译 (详情页专用)
+    const STATIC_TEXTS = {
+        zh: {
+            badge: "艺术作品",
+            backLink: "← 所有作品",
+            loading: "加载中...",
+            notFoundTitle: "作品未找到",
+            notFoundBtn: "返回首页"
+        },
+        en: {
+            badge: "Artwork",
+            backLink: "← All Artworks",
+            loading: "Loading...",
+            notFoundTitle: "Artwork Not Found",
+            notFoundBtn: "Back to Home"
+        }
+    };
+
+    let currentLang = localStorage.getItem('seeralvt_lang') || 'zh';   // 默认中文
+
+    // 根据当前语言获取本地化作品对象
+    function getLocalizedWork(work, lang) {
+        if (!work) return null;
+        const isZh = lang === 'zh';
+        return {
+            id: work.id,
+            year: work.year,
+            image: work.image,
+            largeImage: work.largeImage,
+            title: isZh ? work.title_zh : work.title_en,
+            location: isZh ? work.location_zh : work.location_en,
+            description: isZh ? work.description_zh : work.description_en,
+            fullDescription: isZh ? work.fullDescription_zh : work.fullDescription_en
+        };
     }
 
+    // 根据id获取原始作品数据
+    function getRawWorkById(id) {
+        return WORKS_MULTILINGUAL.find(work => work.id === id);
+    }
+
+    // 从URL获取作品id
+    function getWorkIdFromURL() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('id');
+    }
+
+    // 更新页面静态元素 (back-link文字，页面标题等)
+    function updateStaticElements() {
+        const texts = STATIC_TEXTS[currentLang];
+        const backLinkEl = document.getElementById('back-link');
+        if (backLinkEl) {
+            backLinkEl.textContent = texts.backLink;
+        }
+        // 更新语言切换按钮激活状态
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            const langVal = btn.getAttribute('data-lang');
+            if (langVal === currentLang) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+    }
+
+    // 渲染详情页主内容
     function renderDetail() {
-        const work = getWorkFromURL();
         const container = document.getElementById('detail-content');
-        
-        if (!work) {
+        if (!container) return;
+
+        const workId = getWorkIdFromURL();
+        const rawWork = getRawWorkById(workId);
+        const texts = STATIC_TEXTS[currentLang];
+
+        // 未找到作品的情况
+        if (!rawWork) {
             container.innerHTML = `
-                <div style="text-align: center; padding: 80px 0;">
-                    <h2 style="font-size: 1.5rem; font-weight: 400;">作品未找到</h2>
-                    <a href="index.html" style="color: #d97706; margin-top: 20px; display: inline-block;">返回首页</a>
+                <div class="error-container">
+                    <h2>${texts.notFoundTitle}</h2>
+                    <a href="index.html">${texts.notFoundBtn}</a>
                 </div>
             `;
             return;
         }
 
+        // 获取当前语言下的本地化作品数据
+        const work = getLocalizedWork(rawWork, currentLang);
+        
+        // 构建详情HTML
         container.innerHTML = `
             <div class="detail-grid">
                 <div class="detail-image">
@@ -238,18 +406,97 @@
                 </div>
                 <div class="detail-info">
                     <div class="detail-meta">
-                        <span class="badge">Original</span>
+                        <span class="badge">${texts.badge}</span>
                         <span class="year-location">${work.year} · ${work.location}</span>
                     </div>
-                    <h1 class="detail-title">${work.title}</h1>
-                    <p class="detail-description">${work.description}</p>
+                    <h1 class="detail-title">${escapeHtml(work.title)}</h1>
+                    <p class="detail-description">${escapeHtml(work.description)}</p>
                     <div class="detail-full">${work.fullDescription}</div>
                 </div>
             </div>
         `;
     }
 
-    renderDetail();
+    // 简单防XSS辅助 (保留HTML标签用于fullDescription中的链接)
+    function escapeHtml(str) {
+        if (!str) return '';
+        return str.replace(/[&<>]/g, function(m) {
+            if (m === '&') return '&amp;';
+            if (m === '<') return '&lt;';
+            if (m === '>') return '&gt;';
+            return m;
+        }).replace(/[\uD800-\uDBFF][\uDC00-\uDFFF]/g, function(c) {
+            return c;
+        });
+    }
+
+    // 切换语言主逻辑
+    function setLanguage(lang) {
+        if (lang === currentLang) return;
+        currentLang = lang;
+        localStorage.setItem('seeralvt_lang', lang);
+        
+        // 更新静态文字（返回链接、按钮状态）
+        updateStaticElements();
+        // 重新渲染详情内容 (作品标题、描述等随之切换)
+        renderDetail();
+        
+        // 可选：更新页面标题增强体验
+        const workId = getWorkIdFromURL();
+        const rawWork = getRawWorkById(workId);
+        if (rawWork) {
+            const localized = getLocalizedWork(rawWork, currentLang);
+            document.title = `${localized.title} - SeeraLVT Artworks`;
+        } else {
+            document.title = currentLang === 'zh' ? '作品未找到' : 'Artwork Not Found';
+        }
+    }
+
+    // 绑定语言切换按钮事件
+    function bindLangSwitcher() {
+        const btns = document.querySelectorAll('.lang-btn');
+        btns.forEach(btn => {
+            btn.removeEventListener('click', langClickHandler);
+            btn.addEventListener('click', langClickHandler);
+        });
+    }
+
+    function langClickHandler(e) {
+        const lang = e.currentTarget.getAttribute('data-lang');
+        if (lang) setLanguage(lang);
+    }
+
+    // 初始化页面
+    function initDetail() {
+        // 确保语言读取自 localStorage (与首页共享)
+        const savedLang = localStorage.getItem('seeralvt_lang');
+        if (savedLang && (savedLang === 'zh' || savedLang === 'en')) {
+            currentLang = savedLang;
+        } else {
+            currentLang = 'zh';
+            localStorage.setItem('seeralvt_lang', 'zh');
+        }
+        
+        // 更新静态元素 (返回链接文字，按钮激活样式)
+        updateStaticElements();
+        // 渲染详情内容
+        renderDetail();
+        // 绑定语言切换器
+        bindLangSwitcher();
+        
+        // 设置页面标题 (基于当前作品和语言)
+        const workId = getWorkIdFromURL();
+        const rawWork = getRawWorkById(workId);
+        if (rawWork) {
+            const localized = getLocalizedWork(rawWork, currentLang);
+            document.title = `${localized.title} - SeeraLVT Artworks`;
+        } else {
+            document.title = currentLang === 'zh' ? '作品未找到' : 'Artwork Not Found';
+        }
+    }
+
+    // 启动
+    initDetail();
 </script>
 </body>
 </html>
